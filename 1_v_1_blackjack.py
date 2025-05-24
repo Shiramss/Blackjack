@@ -1,15 +1,53 @@
-card = [1,2,3,4,5,6,7,8,9,10,10,10,0] #values of each card in a deck, 0 is placeholder value for ace as it has two values
-no_ace = [1,2,3,4,5,6,7,8,9,10,10,10] # card deck with no aces to prevent people from getting a hand with just zero 
+card = [1,2,3,4,5,6,7,8,9,10,10,10,0] #values of each card in a deck, 0 is placeholder value for ace as it has two values 
 import random
 
 def blackjack(): #pick two random cards for player and dealer
-  player_card = random.choice(no_ace) + random.choice(no_ace) #calculate initial values of player 1 and player 2
-  dealer_card = random.choice(no_ace) + random.choice(no_ace)
+  player_card = 0 #player 1 card value
+  dealer_card = 0 #player 2 card value
+  l = 0 #define variable to set up failsafe loop
+  while l < 2: #draws first two cards for eaach player
+        y = random.choice(card)
+        if y == 0: #if player gets an ace, choose value of 11 or 1
+            a = 0
+            while a == 0:
+                ace = input(f"Player 1, you got an ace! 11 or 1: \n current hand value: {player_card}: ")
+                if ace == '1': 
+                    player_card += 1
+                    print(f"Player 1: your current value is: {player_card}")
+                    a += 1
+                elif ace == '11':
+                    player_card += 11
+                    print(f"Player 1: your current value is: {player_card}")
+                    a += 1
+                else: #error handling if player puts in wrong value
+                    print("please input 11 or 1")
+                    a = 0
+        else:
+             player_card += y # Add card value 
+        y = random.choice(card)
+        if y == 0:
+            a = 0
+            while a == 0:
+                ace = input(f"Player 2, you got an ace! 11 or 1: \n current hand value: {dealer_card}: ")
+                if ace == '1': 
+                    dealer_card += 1
+                    print(f"Player 2: your current value is: {dealer_card}")
+                    a += 1
+                elif ace == '11':
+                    dealer_card += 11
+                    print(f"Player 2: your current value is: {dealer_card}")
+                    a += 1
+                else:
+                     print("please input 11 or 1")
+                     a = 0
+                     
+        else:
+             dealer_card += y # Add card value 
+        l += 1
+            
   turn  = 0 #set turns to zero to keep the game going until someone wins or looses
-  x = 0 # define player turn variables outside of the loop
+  x = 0 # define variables denoting player turn outside of the loop
   z = 0 
-  choicex = 'a' #define choice variables out side of loop
-  choicey = 'b'
   while turn == 0: #loop game until someone wins
     while x == 0: #loop player 1 turn until it is over
         wrong = False #boolean variable for if player inputs wrong command
@@ -22,13 +60,20 @@ def blackjack(): #pick two random cards for player and dealer
         elif choicex.lower() == "hit" :
             y = random.choice(card) # y is card value for the turn
             if y == 0: # y = 0 -> refers to an ace
-                ace = int(input("You got an ace! 11 or 1: "))
-                if ace == 1: 
-                    player_card += 1
-                    print(f"Player 1: your current value is: {player_card}")
-                elif ace == 11:
-                    player_card += 11
-                    print(f"Player 1: your current value is: {player_card}")
+                a = 0
+                while a == 0:
+                    ace = input(f"Player 1, you got an ace! 11 or 1: \n current hand value: {player_card}: ")
+                    if ace == '1': 
+                        player_card += 1
+                        print(f"Player 1: your current value is: {player_card}")
+                        a += 1
+                    elif ace == '11':
+                        player_card += 11
+                        print(f"Player 1: your current value is: {player_card}")
+                        a += 1
+                    else: #error handling if player puts in wrong value
+                        print("please input 11 or 1")
+                        a = 0
             else:
                  player_card += y # Add card value 
             print(f"Player 1: your current value is: {player_card}")
@@ -70,13 +115,20 @@ def blackjack(): #pick two random cards for player and dealer
         elif choicey.lower() == "hit":
             y = random.choice(card)
             if y == 0:
-                ace = int(input("11 or 1: "))
-                if ace == 1: 
-                    dealer_card += 1
-                    print(f"Player 2: your current value is: {dealer_card}")
-                elif ace == 11:
-                    dealer_card += 11
-                    print(f"Player 2: your current value is: {dealer_card}")
+                a = 0
+                while a == 0:
+                    ace = input(f"Player 2, you got an ace! 11 or 1: \n current hand value: {dealer_card}: ")
+                    if ace == '1': 
+                        dealer_card += 1
+                        print(f"Player 2: your current value is: {dealer_card}")
+                        a += 1
+                    elif ace == '11':
+                        dealer_card += 11
+                        print(f"Player 2: your current value is: {dealer_card}")
+                        a += 1
+                    else:
+                        print("please input 11 or 1")
+                        a = 0
             else: 
                 dealer_card += y
             print(f"Player 2: your current value is: {dealer_card}")
